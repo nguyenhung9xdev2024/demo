@@ -1,20 +1,20 @@
-$(document).ready(function () {
+function loadData() {
     $.getJSON('data/chuyen_khoan_part_1.json', function (data) {
 
-         let totalCount = data.length;
-         let sumAmount = data.reduce((acc, curr) => acc + curr.credit, 0);
-         let minAmount = Math.min(...data.map(item => item.credit));
-         let maxAmount = Math.max(...data.map(item => item.credit));
+        let totalCount = data.length;
+        let sumAmount = data.reduce((acc, curr) => acc + curr.credit, 0);
+        let minAmount = Math.min(...data.map(item => item.credit));
+        let maxAmount = Math.max(...data.map(item => item.credit));
 
         console.log("Tổng số lượng:", totalCount);
         console.log("Tổng số tiền:", sumAmount);
         console.log("Số tiền nhỏ nhất:", minAmount);
         console.log("Số tiền lớn nhất:", maxAmount);
- 
-         document.getElementById('totalCount').textContent = totalCount;
-         document.getElementById('sumAmount').textContent = sumAmount.toLocaleString('vi-VN') + ' ₫';
-         document.getElementById('minAmount').textContent = minAmount.toLocaleString('vi-VN') + ' ₫';
-         document.getElementById('maxAmount').textContent = maxAmount.toLocaleString('vi-VN') + ' ₫';
+
+        document.getElementById('totalCount').textContent = totalCount;
+        document.getElementById('sumAmount').textContent = sumAmount.toLocaleString('vi-VN') + ' ₫';
+        document.getElementById('minAmount').textContent = minAmount.toLocaleString('vi-VN') + ' ₫';
+        document.getElementById('maxAmount').textContent = maxAmount.toLocaleString('vi-VN') + ' ₫';
 
         $('#donationTable').DataTable({
             data: data,
@@ -25,10 +25,10 @@ $(document).ready(function () {
                 { data: 'credit', title: 'Credit', render: $.fn.dataTable.render.number(',', '.', 0, '', ' ₫') },
                 { data: 'detail', title: 'Details' }
             ],
-            paging: true, // Tính năng phân trang
-            searching: true, // Tính năng tìm kiếm
-            pageLength: 15, // Hiển thị 10 dòng mỗi trang (có thể thay đổi)
-            lengthMenu: [15, 25, 50, 100, 200], // Tùy chọn số dòng mỗi trang
+            paging: true,
+            searching: true,
+            pageLength: 15,
+            lengthMenu: [15, 25, 50, 100, 200],
             language: {
                 paginate: {
                     previous: "Trước",
@@ -40,7 +40,7 @@ $(document).ready(function () {
             }
         });
     });
-});
+}
 
 // Gọi hàm loadData khi trang vừa tải
 $(document).ready(function () {
