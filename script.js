@@ -1,5 +1,16 @@
 $(document).ready(function () {
     $.getJSON('data/chuyen_khoan_part_1.json', function (data) {
+
+         let totalCount = data.length;
+         let sumAmount = data.reduce((acc, curr) => acc + curr.credit, 0);
+         let minAmount = Math.min(...data.map(item => item.credit));
+         let maxAmount = Math.max(...data.map(item => item.credit));
+ 
+         document.getElementById('totalCount').textContent = totalCount;
+         document.getElementById('sumAmount').textContent = sumAmount.toLocaleString('vi-VN') + ' ₫';
+         document.getElementById('minAmount').textContent = minAmount.toLocaleString('vi-VN') + ' ₫';
+         document.getElementById('maxAmount').textContent = maxAmount.toLocaleString('vi-VN') + ' ₫';
+
         $('#donationTable').DataTable({
             data: data,
             columns: [
