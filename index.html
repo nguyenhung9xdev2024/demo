@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách đóng góp ủng hộ cơn bão số 3 YAGI</title>
+    <link rel="stylesheet" href="csc/styles.css">
+</head>
+<body>
+    <h1>Danh sách đóng góp ủng hộ cơn bão số 3 YAGI</h1>
+    <p>Dữ liệu được tham khảo từ nguồn: <a href="#">MTTQ</a>. Dữ liệu chỉ là nguồn tham khảo và không có mục đích bôi nhọ bất kỳ ai.</p>
+
+    <div class="statistics">
+        <div>Tổng số lượng: <span id="totalCount"></span></div>
+        <div>Tổng số tiền: <span id="sumAmount"></span></div>
+        <div>Số tiền nhỏ nhất: <span id="minAmount"></span></div>
+        <div>Số tiền lớn nhất: <span id="maxAmount"></span></div>
+    </div>
+
+    <button onclick="loadData()">Tải lại dữ liệu</button>
+
+    <table id="donationTable">
+        <thead>
+            <tr>
+                <th>Ngày</th>
+                <th>Số chứng từ</th>
+                <th>Số tiền</th>
+                <th>Chi tiết</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
