@@ -27,7 +27,7 @@ $(document).ready(function () {
             paging: true, // Tính năng phân trang
             searching: true, // Tính năng tìm kiếm
             pageLength: 15, // Hiển thị 10 dòng mỗi trang (có thể thay đổi)
-            lengthMenu: [10, 25, 50, 100, 150, 200], // Tùy chọn số dòng mỗi trang
+            lengthMenu: [15, 25, 50, 100, 200], // Tùy chọn số dòng mỗi trang
             language: {
                 paginate: {
                     previous: "Trước",
