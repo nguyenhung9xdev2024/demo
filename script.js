@@ -37,15 +37,25 @@ function displayData(allData) {
     let tbody = document.querySelector('#donationTable tbody');
     tbody.innerHTML = '';
 
-    allData.forEach(item => {
-        let row = `<tr>
-            <td>${item.Date}</td>
-            <td>${item.DocNo}</td>
-            <td>${item.Amount.toLocaleString('vi-VN')} ₫</td>
-            <td>${item.Details}</td>
-        </tr>`;
-        tbody.innerHTML += row;
-    });
-}
+     let index = 0;
+     function addRows() {
+         const batchSize = 100; // Số hàng thêm mỗi lần để tránh stack overflow
+         for (let i = 0; i < batchSize && index < allData.length; i++, index++) {
+             let item = allData[index];
+             let row = `<tr>
+                 <td>${item.Date}</td>
+                 <td>${item.DocNo}</td>
+                 <td>${item.Amount.toLocaleString('vi-VN')} ₫</td>
+                 <td>${item.Details}</td>
+             </tr>`;
+             tbody.innerHTML += row;
+         }
+         if (index < allData.length) {
+             setTimeout(addRows, 0); // Gọi tiếp phần tiếp theo khi có quá nhiều dữ liệu
+         }
+     }
+ 
+     addRows(); // Bắt đầu thêm dữ liệu vào bảng
+ }
 
-loadData();
+ loadData();
