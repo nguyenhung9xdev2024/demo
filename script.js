@@ -1,3 +1,6 @@
+let currentPage = 1;
+const rowsPerPage = 50;
+
 async function loadData() {
     const totalParts = 201; // Tổng số phần JSON
     const dataFolderPath = 'data/'; // Thư mục chứa các file JSON
@@ -34,40 +37,58 @@ function displayData(allData) {
     document.getElementById('minAmount').textContent = minAmount.toLocaleString('vi-VN') + ' ₫';
     document.getElementById('maxAmount').textContent = maxAmount.toLocaleString('vi-VN') + ' ₫';
 
+    renderPage(allData); // Bắt đầu hiển thị trang đầu tiên
+}
+
+function renderPage(allData) {
     let tbody = document.querySelector('#donationTable tbody');
     tbody.innerHTML = '';
 
-    // Sử dụng hàng đợi để thêm dữ liệu theo từng lô
-    let index = 0;
-    let queue = allData.slice(); // Tạo bản sao của dữ liệu để sử dụng hàng đợi
+    let start = (currentPage - 1) * rowsPerPage;
+    let end = start + rowsPerPage;
+    let pageData = allData.slice(start, end);
 
-    function processQueue() {
-        if (queue.length === 0) {
-            return; // Dừng lại nếu không còn hàng trong hàng đợi
-        }
+    pageData.forEach(item => {
+        let row = `<tr>
+            <td>${item.Date}</td>
+            <td>${item.DocNo}</td>
+            <td>${item.Amount.toLocaleString('vi-VN')} ₫</td>
+            <td>${item.Details}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
 
-        const batchSize = 50; // Số lượng hàng thêm vào mỗi lần
-        let fragment = document.createDocumentFragment(); // Sử dụng fragment để tăng hiệu suất
+    // Hiển thị nút phân trang
+    displayPagination(allData.length);
+}
 
-        for (let i = 0; i < batchSize && queue.length > 0; i++) {
-            let item = queue.shift(); // Lấy phần tử từ hàng đợi
-            let row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.Date}</td>
-                <td>${item.DocNo}</td>
-                <td>${item.Amount.toLocaleString('vi-VN')} ₫</td>
-                <td>${item.Details}</td>
-            `;
-            fragment.appendChild(row);
-        }
+function displayPagination(totalRows) {
+    let paginationDiv = document.getElementById('pagination');
+    paginationDiv.innerHTML = '';
 
-        tbody.appendChild(fragment); // Thêm hàng mới vào DOM sau khi xử lý lô hàng hiện tại
+    let totalPages = Math.ceil(totalRows / rowsPerPage);
 
-        // Gọi lại hàm processQueue để xử lý các phần tử còn lại trong hàng đợi
-        setTimeout(processQueue, 50); // Đợi 50ms trước khi tiếp tục xử lý phần tiếp theo
+    // Nút trang trước
+    if (currentPage > 1) {
+        let prevButton = document.createElement('button');
+        prevButton.textContent = 'Trước';
+        prevButton.onclick = () => {
+            currentPage--;
+            renderPage(allData);
+        };
+        paginationDiv.appendChild(prevButton);
     }
 
-    processQueue(); // Bắt đầu xử lý hàng đợi
+    // Nút trang tiếp theo
+    if (currentPage < totalPages) {
+        let nextButton = document.createElement('button');
+        nextButton.textContent = 'Tiếp theo';
+        nextButton.onclick = () => {
+            currentPage++;
+            renderPage(allData);
+        };
+        paginationDiv.appendChild(nextButton);
+    }
 }
 
 // Gọi hàm loadData để tải và hiển thị dữ liệu
