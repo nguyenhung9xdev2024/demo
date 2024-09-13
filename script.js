@@ -18,6 +18,7 @@ $(document).ready(function () {
 
         $('#donationTable').DataTable({
             data: data,
+            destroy: true,
             columns: [
                 { data: 'date_time', title: 'Date Time' },
                 { data: 'trans_no', title: 'Transaction No' },
@@ -39,4 +40,9 @@ $(document).ready(function () {
             }
         });
     });
+});
+
+// Gọi hàm loadData khi trang vừa tải
+$(document).ready(function () {
+    loadData();
 });
