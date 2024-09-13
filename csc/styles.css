@@ -45,6 +45,49 @@ button:hover {
     background-color: #218838;
 }
 
+/* Dark mode */
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode .statistics {
+    background-color: #333;
+    color: white;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode button {
+    background-color: #444;
+}
+
+body.dark-mode button:hover {
+    background-color: #666;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    color: black;
+}
+
+body.dark-mode table {
+    background-color: #333;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+body.dark-mode th, body.dark-mode td {
+    border: 1px solid #444;
+}
+
 @media screen and (max-width: 768px) {
     body {
         padding: 10px;
