@@ -5,6 +5,11 @@ $(document).ready(function () {
          let sumAmount = data.reduce((acc, curr) => acc + curr.credit, 0);
          let minAmount = Math.min(...data.map(item => item.credit));
          let maxAmount = Math.max(...data.map(item => item.credit));
+
+        console.log("Tổng số lượng:", totalCount);
+        console.log("Tổng số tiền:", sumAmount);
+        console.log("Số tiền nhỏ nhất:", minAmount);
+        console.log("Số tiền lớn nhất:", maxAmount);
  
          document.getElementById('totalCount').textContent = totalCount;
          document.getElementById('sumAmount').textContent = sumAmount.toLocaleString('vi-VN') + ' ₫';
