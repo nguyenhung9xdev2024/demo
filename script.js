@@ -3,10 +3,10 @@ $(document).ready(function () {
         $('#donationTable').DataTable({
             data: data,
             columns: [
-                { data: 'Date' },
-                { data: 'DocNo' },
-                { data: 'Amount', render: $.fn.dataTable.render.number(',', '.', 0, '', ' ₫') },
-                { data: 'Details' }
+                { data: 'date_time', title: 'Date' },
+                { data: 'trans_no', title: 'Transaction No' },
+                { data: 'credit', title: 'Credit', render: $.fn.dataTable.render.number(',', '.', 0, '', ' ₫') },
+                { data: 'detail', title: 'Details' }
             ],
             paging: true, // Tính năng phân trang
             searching: true, // Tính năng tìm kiếm
