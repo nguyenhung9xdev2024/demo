@@ -37,13 +37,20 @@ function displayData(allData) {
     let tbody = document.querySelector('#donationTable tbody');
     tbody.innerHTML = '';
 
+    // Sử dụng hàng đợi để thêm dữ liệu theo từng lô
     let index = 0;
-    async function addRows() {
-        const batchSize = 50; // Số hàng thêm mỗi lần
-        let fragment = document.createDocumentFragment(); // Sử dụng fragment để tăng hiệu năng khi thêm dữ liệu vào DOM
+    let queue = allData.slice(); // Tạo bản sao của dữ liệu để sử dụng hàng đợi
 
-        for (let i = 0; i < batchSize && index < allData.length; i++, index++) {
-            let item = allData[index];
+    function processQueue() {
+        if (queue.length === 0) {
+            return; // Dừng lại nếu không còn hàng trong hàng đợi
+        }
+
+        const batchSize = 50; // Số lượng hàng thêm vào mỗi lần
+        let fragment = document.createDocumentFragment(); // Sử dụng fragment để tăng hiệu suất
+
+        for (let i = 0; i < batchSize && queue.length > 0; i++) {
+            let item = queue.shift(); // Lấy phần tử từ hàng đợi
             let row = document.createElement('tr');
             row.innerHTML = `
                 <td>${item.Date}</td>
@@ -54,15 +61,14 @@ function displayData(allData) {
             fragment.appendChild(row);
         }
 
-        tbody.appendChild(fragment); // Thêm dữ liệu đã gom vào DOM sau khi xử lý một nhóm hàng
+        tbody.appendChild(fragment); // Thêm hàng mới vào DOM sau khi xử lý lô hàng hiện tại
 
-        // Đợi khoảng thời gian ngắn trước khi tiếp tục
-        if (index < allData.length) {
-            setTimeout(addRows, 0); // Gọi tiếp phần tiếp theo khi có quá nhiều dữ liệu
-        }
+        // Gọi lại hàm processQueue để xử lý các phần tử còn lại trong hàng đợi
+        setTimeout(processQueue, 50); // Đợi 50ms trước khi tiếp tục xử lý phần tiếp theo
     }
 
-    addRows();
+    processQueue(); // Bắt đầu xử lý hàng đợi
 }
 
+// Gọi hàm loadData để tải và hiển thị dữ liệu
 loadData();
