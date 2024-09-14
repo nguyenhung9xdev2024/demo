@@ -15,10 +15,11 @@ function loadData() {
             data: data,
             destroy: true,
             columns: [
-                { data: 'date_time', title: 'Date Time' },
-                { data: 'trans_no', title: 'Transaction No' },
-                { data: 'credit', title: 'Credit', render: $.fn.dataTable.render.number(',', '.', 0, '', ' ₫') },
-                { data: 'detail', title: 'Details' }
+                { data: 'id', title: 'STT' },
+                { data: 'date', title: 'Thời gian' },
+                { data: 'transaction_id', title: 'Transaction ID' },
+                { data: 'amount', title: 'Số tiền', render: $.fn.dataTable.render.number(',', '.', 0, '', ' ₫') },
+                { data: 'description', title: 'Nội dung' }
             ],
             paging: true,
             searching: true,
