@@ -24,6 +24,10 @@ function loadData() {
         document.getElementById('minAmount').textContent = minAmount.toLocaleString('vi-VN') + ' ₫';
         document.getElementById('maxAmount').textContent = maxAmount.toLocaleString('vi-VN') + ' ₫';
 
+        data.forEach(function(item) {
+            item.date = convertTimestampToDate(item.date);
+        });
+
         $('#donationTable').DataTable({
             data: data,
             destroy: true,
