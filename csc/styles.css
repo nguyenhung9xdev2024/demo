@@ -28,6 +28,7 @@ th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
+    white-space: nowrap;
 }
 
 button {
@@ -74,6 +75,7 @@ button:hover {
         position: relative;
         padding-left: 50%;
         text-align: left;
+        white-space: normal;
     }
 
     td:before {
@@ -101,4 +103,8 @@ button:hover {
     button {
         padding: 8px 15px;
     }
+}
+
+.table-responsive {
+    overflow-x: auto;
 }
