@@ -1,3 +1,16 @@
+function convertTimestampToDate(timestamp) {
+    // Chuyển đổi timestamp (mili giây) thành định dạng ngày-tháng-năm
+    let date = new Date(timestamp);
+    let day = String(date.getDate()).padStart(2, '0');
+    let month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng 0-11 nên cần +1
+    let year = date.getFullYear();
+    let hours = String(date.getHours()).padStart(2, '0');
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
 function loadData() {
     $.getJSON('data/chuyen_khoan_part_1.json', function (data) {
 
