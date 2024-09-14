@@ -27,6 +27,7 @@ function loadData() {
 
         data.forEach(function(item) {
             item.date = convertTimestampToDate(item.date);
+            item.amount = parseInt(item.amount.replace(/\./g, ''), 10);
         });
 
         $('#donationTable').DataTable({
