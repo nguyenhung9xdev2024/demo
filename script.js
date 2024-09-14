@@ -4,15 +4,16 @@ function convertTimestampToDate(timestamp) {
     let day = String(date.getDate()).padStart(2, '0');
     let month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng 0-11 nên cần +1
     let year = date.getFullYear();
-    let hours = String(date.getHours()).padStart(2, '0');
-    let minutes = String(date.getMinutes()).padStart(2, '0');
-    let seconds = String(date.getSeconds()).padStart(2, '0');
     
-    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    return `${day}/${month}/${year}`;
 }
 
 function loadData() {
     $.getJSON('data/chuyen_khoan_part_1.json', function (data) {
+
+        data.sort(function(a, b) {
+            return new Date(a.date) - new Date(b.date); // Sắp xếp theo thời gian
+        });
 
         let totalCount = data.length;
         let sumAmount = data.reduce((acc, curr) => acc + curr.credit, 0);
